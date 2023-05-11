@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 import os
 import shutil
 import uuid
@@ -8,11 +9,20 @@ import uvicorn
 import os 
 
 app = FastAPI()
+if not os.path.exists('uploads'):
+    os.makedirs('uploads')
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-if not os.path.exists('uploads'):
-    os.makedirs('uploads')
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
+
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
