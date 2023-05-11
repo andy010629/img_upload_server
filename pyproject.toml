@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "img-upload"
+version = "0.1.0"
+description = ""
+authors = ["andy010629 <andy010629@gmail.com>"]
+readme = "README.md"
+packages = [{include = "img_upload"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.95.1"
+uvicorn = "^0.22.0"
+python-multipart = "^0.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
